@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://services/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services/">
+
+<xs:element name="ArrayListToJSONArray" type="tns:ArrayListToJSONArray"/>
+
+<xs:element name="ArrayListToJSONArrayResponse" type="tns:ArrayListToJSONArrayResponse"/>
+
+<xs:element name="ParseException" type="tns:ParseException"/>
+
+<xs:element name="getCentro" type="tns:getCentro"/>
+
+<xs:element name="getCentroLabels" type="tns:getCentroLabels"/>
+
+<xs:element name="getCentroLabelsResponse" type="tns:getCentroLabelsResponse"/>
+
+<xs:element name="getCentroResponse" type="tns:getCentroResponse"/>
+
+<xs:element name="getConnectionBetweenEntities" type="tns:getConnectionBetweenEntities"/>
+
+<xs:element name="getConnectionBetweenEntitiesResponse" type="tns:getConnectionBetweenEntitiesResponse"/>
+
+<xs:element name="getEntidad" type="tns:getEntidad"/>
+
+<xs:element name="getEntidadResponse" type="tns:getEntidadResponse"/>
+
+<xs:element name="getEntidadesLabels" type="tns:getEntidadesLabels"/>
+
+<xs:element name="getEntidadesLabelsResponse" type="tns:getEntidadesLabelsResponse"/>
+
+<xs:element name="getVariable" type="tns:getVariable"/>
+
+<xs:element name="getVariableLabels" type="tns:getVariableLabels"/>
+
+<xs:element name="getVariableLabelsResponse" type="tns:getVariableLabelsResponse"/>
+
+<xs:element name="getVariableOptions" type="tns:getVariableOptions"/>
+
+<xs:element name="getVariableOptionsResponse" type="tns:getVariableOptionsResponse"/>
+
+<xs:element name="getVariableResponse" type="tns:getVariableResponse"/>
+
+<xs:element name="numCentros" type="tns:numCentros"/>
+
+<xs:element name="numCentrosResponse" type="tns:numCentrosResponse"/>
+
+<xs:element name="numEntidades" type="tns:numEntidades"/>
+
+<xs:element name="numEntidadesResponse" type="tns:numEntidadesResponse"/>
+
+<xs:element name="parseJSONArray" type="tns:parseJSONArray"/>
+
+<xs:element name="parseJSONArrayResponse" type="tns:parseJSONArrayResponse"/>
+
+<xs:complexType name="getCentro">
+<xs:sequence>
+<xs:element name="centroName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCentroResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVariableOptions">
+<xs:sequence>
+<xs:element name="variableName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVariableOptionsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ArrayListToJSONArray">
+<xs:sequence>
+<xs:element name="arg0" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ArrayListToJSONArrayResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVariableLabels">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getVariableLabelsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="numEntidades">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="numEntidadesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="parseJSONArray">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="parseJSONArrayResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ParseException">
+<xs:sequence>
+<xs:element name="errorType" type="xs:int"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+<xs:element name="position" type="xs:int"/>
+<xs:element name="unexpectedObject" type="xs:anyType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getConnectionBetweenEntities">
+<xs:sequence>
+<xs:element name="entity1Name" type="xs:string" minOccurs="0"/>
+<xs:element name="entity2Name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getConnectionBetweenEntitiesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCentroLabels">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getCentroLabelsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getEntidadesLabels">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getEntidadesLabelsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getEntidad">
+<xs:sequence>
+<xs:element name="entidadName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getEntidadResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVariable">
+<xs:sequence>
+<xs:element name="variableName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVariableResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="numCentros">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="numCentrosResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
