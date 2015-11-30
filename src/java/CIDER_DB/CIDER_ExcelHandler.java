@@ -183,9 +183,13 @@ public class CIDER_ExcelHandler {
     if(currentCell.getCellType() == Cell.CELL_TYPE_NUMERIC){
      cellContent = currentCell.getNumericCellValue()+"";
     }else{
-     cellContent = currentCell.getStringCellValue();
+     try{
+      cellContent = new String(currentCell.getStringCellValue().getBytes(),"UTF-8");
+      centro.makeSingleVariable(variableNames[i],cellContent);
+     }catch(Exception e){
+       System.out.println("unable to encode UTF-8 string");
+     }
     }
-    centro.makeSingleVariable(variableNames[i],cellContent);
     }else{
      System.out.println("null cell value asking for: "+variableToDBMap.get(variableNames[i]));
     }

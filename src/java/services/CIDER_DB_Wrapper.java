@@ -25,7 +25,7 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_DB_Wrapper {
  protected CIDER_DB dataBase;
- protected final String dataPath = "C:\\Users\\admCIDER\\Desktop\\HerramientaWeb_CIDER\\Data\\excelFiles";
+ protected final String dataPath = "C:\\desarrollo\\desarrolloCIDER\\webTestApplication\\Data";
  protected final String fileName = "baseDeDatos_emailInstitucional.xlsx";
  
  public CIDER_DB_Wrapper() {
@@ -174,7 +174,10 @@ public class CIDER_DB_Wrapper {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
     try{
-     ArrayList<String> arrayOfFilters = parseJSONArray(filters);
+     ArrayList<String> arrayOfFilters = new ArrayList<String>();
+     if(filters != null){
+      arrayOfFilters = parseJSONArray(filters);
+     }
      CIDER_Variable var = dataBase.getVariable(variableName);
      if(var == null){
       throw new NullPointerException("Variable not registered");
@@ -195,7 +198,10 @@ public class CIDER_DB_Wrapper {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
     try{
-     ArrayList<String> arrayOfFilters = parseJSONArray(filters);
+     ArrayList<String> arrayOfFilters = new ArrayList<String>();
+     if(filters != null){
+      arrayOfFilters = parseJSONArray(filters);
+     }
      CIDER_Variable var = dataBase.getVariable(variableName);
      if(var == null){
       throw new NullPointerException("Variable not registered");
@@ -216,7 +222,10 @@ public class CIDER_DB_Wrapper {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
    try{
-    ArrayList<String> arrayOfFilters = parseJSONArray(filters);
+    ArrayList<String> arrayOfFilters = new ArrayList<String>();
+    if(filters != null){
+     arrayOfFilters = parseJSONArray(filters);
+    }
     CIDER_Variable var1 = dataBase.getVariable(variable1Name);
     CIDER_Variable var2 = dataBase.getVariable(variable2Name);
     if(var1 == null || var2 == null){
@@ -249,7 +258,10 @@ public class CIDER_DB_Wrapper {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
    try{
-    ArrayList<String> arrayOfFilters = parseJSONArray(filters);
+    ArrayList<String> arrayOfFilters = new ArrayList<String>();
+    if(filters != null){
+     arrayOfFilters = parseJSONArray(filters);
+    }
     CIDER_Variable var1 = dataBase.getVariable(variable1Name);
     CIDER_Variable var2 = dataBase.getVariable(variable2Name);
     if(var1 == null || var2 == null){
