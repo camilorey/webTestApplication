@@ -26,7 +26,10 @@ import org.json.simple.parser.ParseException;
 public class CIDER_DB_Wrapper {
  protected CIDER_DB dataBase;
  protected StringHandler stringHandler;
- protected final String dataPath = "C:\\desarrollo\\desarrolloCIDER\\webTestApplication\\Data";
+ //direccion local para pruebas (Camilo)
+ //protected final String dataPath = "C:\\desarrollo\\desarrolloCIDER\\webTestApplication\\Data";
+ //dirección para pruebas en el servidor CIDER
+ protected final String dataPath = "C:\\Users\\admCIDER\\Desktop\\HerramientaWeb_CIDER\\Data\\excelFiles";
  protected final String fileName = "baseDeDatos_emailInstitucional.xlsx";
  
  public CIDER_DB_Wrapper() {

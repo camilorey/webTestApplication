@@ -258,7 +258,7 @@ public class CIDER_ExcelHandler {
   while(rowIterator.hasNext() && !reachedEmptyRow){
    if(rowCounter !=0){
     Row currentRow = rowIterator.next();
-    String centroName = currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue();
+    String centroName = removeSpecialSymbols(currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue());
     if(centroName.equals("")){
      reachedEmptyRow = true;
     }else{
