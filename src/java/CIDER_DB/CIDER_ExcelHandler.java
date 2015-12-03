@@ -78,7 +78,7 @@ public class CIDER_ExcelHandler {
       if(currentCell != null){
        if(!currentCell.toString().equals("")){
         if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
-         column.add(currentCell.getStringCellValue());
+         column.add(removeSpecialSymbols(currentCell.getStringCellValue()));
         }
        }else{
         reachedEmptyCell = true;
@@ -100,7 +100,7 @@ public class CIDER_ExcelHandler {
     if(varHandler.isVariableIn(variableColumn.get(0))){
      responseMonitor.println("variable already added"+"<br>");
     }else{
-      CIDER_Variable variable = new CIDER_Variable(variableColumn.get(0).toUpperCase());
+      CIDER_Variable variable = new CIDER_Variable(removeSpecialSymbols(variableColumn.get(0).toUpperCase()));
       for(int j=1;j<variableColumn.size();j++){
        if(!variable.isInOptions(variableColumn.get(j))){
         variable.addVariableOption(variableColumn.get(j));
@@ -133,7 +133,7 @@ public class CIDER_ExcelHandler {
     if(varHandler.isVariableIn(variableColumn.get(0))){
      
     }else{
-      CIDER_Variable variable = new CIDER_Variable(variableColumn.get(0).toUpperCase());
+      CIDER_Variable variable = new CIDER_Variable(removeSpecialSymbols(variableColumn.get(0).toUpperCase()));
       for(int j=1;j<variableColumn.size();j++){
        if(!variable.isInOptions(variableColumn.get(j))){
         variable.addVariableOption(variableColumn.get(j));
@@ -159,7 +159,7 @@ public class CIDER_ExcelHandler {
     while (columnIterator.hasNext ()) {
     Cell currentCell = columnIterator.next();
      if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
-      variableToDBMap.put(currentCell.getStringCellValue().toUpperCase(), new Integer(columnIndex));
+      variableToDBMap.put(removeSpecialSymbols(currentCell.getStringCellValue().toUpperCase()), new Integer(columnIndex));
      }
      columnIndex++;
     }
@@ -169,11 +169,11 @@ public class CIDER_ExcelHandler {
   
  }
  public CIDER_Centro fillUniqueFields(Row r, CIDER_Centro centro){
-  String[] variableNames = new String[]{"NOMBRE","ENTIDAD ADSCRITA A","DIRECCIÓN","CONTACTO TOP","E-MAIL CONTACTO TOP",
-                                        "TELÉFONO 1", "COORDENADAS DE UBICACIÓN","PRODUCCIÓN","TAMAÑO",
+  String[] variableNames = new String[]{"NOMBRE","ENTIDAD ADSCRITA A","DIRECCION","CONTACTO TOP","E-MAIL CONTACTO TOP",
+                                        "TELEFONO 1", "COORDENADAS DE UBICACION","PRODUCCION","TAMANO",
                                         "NATURALEZA","CIUDAD/MUNICIPIO","DEPARTAMENTO",
                                         "ALCANCE TERRITORIAL","PRIORIDAD PARA EL CIDER",
-                                        "ROL EN SU ENTORNO","REGIÓN","ROL FRENTE AL CIDER","PÁGINA(S) WEB","OFERTA ACADÉMICA","E-MAIL INSTITUCIONAL"};
+                                        "ROL EN SU ENTORNO","REGION","ROL FRENTE AL CIDER","PAGINA(S) WEB","OFERTA ACADEMICA","E-MAIL INSTITUCIONAL"};
   for(int i=0;i<variableNames.length;i++){
    int variableNumber = variableToDBMap.get(variableNames[i]);
    if(variableNumber != -1){
@@ -185,7 +185,7 @@ public class CIDER_ExcelHandler {
     }else{
      try{
       cellContent = new String(currentCell.getStringCellValue().getBytes(),"UTF-8");
-      centro.makeSingleVariable(variableNames[i],cellContent);
+      centro.makeSingleVariable(variableNames[i],removeSpecialSymbols(cellContent));
      }catch(Exception e){
        System.out.println("unable to encode UTF-8 string");
      }
@@ -198,8 +198,8 @@ public class CIDER_ExcelHandler {
   return centro;
  }
  public CIDER_Centro fillMultiVariableFields(Row r, CIDER_Centro centro,CIDER_VariableHandler variables){
-  String[] multiVariableNames = new String[]{"TEMÁTICA DE ÉNFASIS:5","DIFERENCIADOR:4",
-                                             "CLIENTE FINAL:5","ACTIVIDAD ECONÓMICA:3"};
+  String[] multiVariableNames = new String[]{"TEMATICA DE ENFASIS:5","DIFERENCIADOR:4",
+                                             "CLIENTE FINAL:5","ACTIVIDAD ECONOMICA:3"};
   for(int i=0;i<multiVariableNames.length;i++){
    String[] tokens = multiVariableNames[i].split(":");
    String varName = tokens[0];
@@ -207,7 +207,7 @@ public class CIDER_ExcelHandler {
    ArrayList<String> varValues = new ArrayList<String>();
    for(int j=1;j<=numOptions;j++){
     String columnName = tokens[0]+" "+j;
-    String cellValue = r.getCell(variableToDBMap.get(columnName)).getStringCellValue();
+    String cellValue = removeSpecialSymbols(r.getCell(variableToDBMap.get(columnName)).getStringCellValue());
     if(!cellValue.equals("NA") && !cellValue.equals("No hay información disponible")){
      varValues.add(cellValue);
     }
@@ -219,10 +219,10 @@ public class CIDER_ExcelHandler {
  }
  public CIDER_Centro createAliadosForCentro(Row r, CIDER_Centro centro, CIDER_CentrosHandler centrosHandler){
   for(int i=1;i<=10;i++){
-   String principalResult = r.getCell(variableToDBMap.get("ALIADO PRINCIPAL "+i)).getStringCellValue();
-   String secundarioResult = r.getCell(variableToDBMap.get("ALIADO SECUNDARIO "+i)).getStringCellValue();
+   String principalResult = removeSpecialSymbols(r.getCell(variableToDBMap.get("ALIADO PRINCIPAL "+i)).getStringCellValue());
+   String secundarioResult = removeSpecialSymbols(r.getCell(variableToDBMap.get("ALIADO SECUNDARIO "+i)).getStringCellValue());
    if(!principalResult.equals("NA")){
-    if(!principalResult.equals("No hay información disponible")){
+    if(!principalResult.equals("No hay informacion disponible")){
      int entityType = centrosHandler.entityType(principalResult);
      if(entityType==-1){
       CIDER_Entidad aliadoP = new CIDER_Entidad(principalResult);
@@ -235,7 +235,7 @@ public class CIDER_ExcelHandler {
     }
    }   
    if(!secundarioResult.equals("NA")){
-    if(!secundarioResult.equals("No hay información disponible")){
+    if(!secundarioResult.equals("No hay informacion disponible")){
      int entityType = centrosHandler.entityType(secundarioResult);
      if(entityType==-1){
       CIDER_Entidad aliadoS = new CIDER_Entidad(secundarioResult);
@@ -286,7 +286,7 @@ public class CIDER_ExcelHandler {
   while(rowIterator.hasNext() && !reachedEmptyRow){
    if(rowCounter !=0){
     Row currentRow = rowIterator.next();
-    String centroName = currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue();
+    String centroName = removeSpecialSymbols(currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue());
     if(centroName.equals("")){
      reachedEmptyRow = true;
     }else{
@@ -315,11 +315,11 @@ public class CIDER_ExcelHandler {
   while(rowIterator.hasNext() && !reachedEmptyRow){
    Row currentRow = rowIterator.next();
    if(rowCounter !=0){
-    String centroName = currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue();
+    String centroName = removeSpecialSymbols(currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue());
     if(centroName.equals("")){
      reachedEmptyRow = true;
     }else{
-     String adscritoA = currentRow.getCell(variableToDBMap.get("ENTIDAD ADSCRITA A")).getStringCellValue();
+     String adscritoA = removeSpecialSymbols(currentRow.getCell(variableToDBMap.get("ENTIDAD ADSCRITA A")).getStringCellValue());
      CIDER_Centro centro = new CIDER_Centro(centroName);
      centro = fillUniqueFields(currentRow, centro);
      centro = fillMultiVariableFields(currentRow, centro, variables);
@@ -341,11 +341,11 @@ public class CIDER_ExcelHandler {
   while(rowIterator.hasNext() && !reachedEmptyRow){
    Row currentRow = rowIterator.next();
    if(rowCounter !=0){
-    String centroName = currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue();
+    String centroName = removeSpecialSymbols(currentRow.getCell(variableToDBMap.get("NOMBRE")).getStringCellValue());
     if(centroName.equals("")){
      reachedEmptyRow = true;
     }else{
-     String adscritoA = currentRow.getCell(variableToDBMap.get("ENTIDAD ADSCRITA A")).getStringCellValue();
+     String adscritoA = removeSpecialSymbols(currentRow.getCell(variableToDBMap.get("ENTIDAD ADSCRITA A")).getStringCellValue());
      CIDER_Centro centro = new CIDER_Centro(centroName);
      centro = fillUniqueFields(currentRow, centro);
      centro = fillMultiVariableFields(currentRow, centro, variables);
@@ -373,5 +373,21 @@ public class CIDER_ExcelHandler {
   responseMonitor.println("-------------------creating aliados-----------------------------------"+"<br>");
   CIDER_CentrosHandler centrosConAliados = createAliados(centros);
   return centrosConAliados;
+ }
+ public String removeSpecialSymbols(String givenString){
+  givenString = givenString.replace("á", "a");
+  givenString = givenString.replace("é", "e");
+  givenString = givenString.replace("í", "i");
+  givenString = givenString.replace("ó", "o");
+  givenString = givenString.replace("ú", "u");
+  givenString = givenString.replace("ñ", "n");
+  givenString = givenString.replace("Á", "A");
+  givenString = givenString.replace("É", "E");
+  givenString = givenString.replace("Í", "I");
+  givenString = givenString.replace("Ó", "O");
+  givenString = givenString.replace("Ú", "U");
+  givenString = givenString.replace("Ñ", "N");
+  givenString = givenString.replace("\n"," ");
+  return givenString;
  }
 }

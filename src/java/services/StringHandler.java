@@ -29,16 +29,26 @@ public class StringHandler {
   System.out.println("encoding results:");
   System.out.println("from system to utf8: "+new String(utf8Charset.encode(testStringInSystem).array(),utf8Charset));
   System.out.println("from utf8 to system: "+new String(systemCharset.encode(testStringInUTF8).array(),systemCharset));
-  
  }
  public String encodeToSystemFromUTF8(String utf8String){
-  String decoded = new String(utf8Charset.encode(utf8String).array(),systemCharset);
-  System.out.println("decoded string: "+ decoded);
-  return decoded;
+  if(utf8String.equals("")){
+   return "";
+  }else{
+   String inSystemUTF = new String(utf8String.getBytes(utf8Charset),utf8Charset);
+   String decoded = new String(systemCharset.encode(inSystemUTF).array(),systemCharset);
+   System.out.println("received string: "+utf8String);
+   System.out.println("translated to system UTF-8: "+inSystemUTF);
+   System.out.println("decoded version from system: "+decoded);
+   return decoded;
+  }
  }
  public String encodeToUTF8FromSystem(String systemString){
-  String decoded = new String(systemCharset.encode(systemString).array(),utf8Charset);
-  System.out.println("decoded string: "+ decoded);
-  return decoded;
+  if(systemString.equals("")){
+   return "";
+  }else{
+   String decoded = new String(systemString.getBytes(systemCharset),utf8Charset);
+   System.out.println("recieved string: "+ systemString+ " decoded string: "+ decoded);
+   return decoded;
+  }
  }
 }
