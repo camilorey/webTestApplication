@@ -97,13 +97,13 @@ public class CIDER_ExcelHandler {
    if(variableColumn.isEmpty()){
     reachedEmptyColumn = true;
    }else{
-    if(varHandler.isVariableIn(variableColumn.get(0))){
+    if(varHandler.isVariableIn(removeSpecialSymbols(variableColumn.get(0)))){
      responseMonitor.println("variable already added"+"<br>");
     }else{
       CIDER_Variable variable = new CIDER_Variable(removeSpecialSymbols(variableColumn.get(0).toUpperCase()));
       for(int j=1;j<variableColumn.size();j++){
-       if(!variable.isInOptions(variableColumn.get(j))){
-        variable.addVariableOption(variableColumn.get(j));
+       if(!variable.isInOptions(removeSpecialSymbols(variableColumn.get(j)))){
+        variable.addVariableOption(removeSpecialSymbols(variableColumn.get(j)));
        }else{
         responseMonitor.println("variable option already defined"+"<br>");
        }
@@ -130,13 +130,13 @@ public class CIDER_ExcelHandler {
    if(variableColumn.isEmpty()){
     reachedEmptyColumn = true;
    }else{
-    if(varHandler.isVariableIn(variableColumn.get(0))){
-     
+    if(varHandler.isVariableIn(removeSpecialSymbols(variableColumn.get(0)))){
+     System.out.println("variable already added");
     }else{
       CIDER_Variable variable = new CIDER_Variable(removeSpecialSymbols(variableColumn.get(0).toUpperCase()));
       for(int j=1;j<variableColumn.size();j++){
-       if(!variable.isInOptions(variableColumn.get(j))){
-        variable.addVariableOption(variableColumn.get(j));
+       if(!variable.isInOptions(removeSpecialSymbols(variableColumn.get(j)))){
+        variable.addVariableOption(removeSpecialSymbols(variableColumn.get(j)));
        }
       }
       varHandler.addVariable(variable);
@@ -184,7 +184,7 @@ public class CIDER_ExcelHandler {
      cellContent = currentCell.getNumericCellValue()+"";
     }else{
      try{
-      cellContent = new String(currentCell.getStringCellValue().getBytes(),"UTF-8");
+      cellContent = new String(removeSpecialSymbols(currentCell.getStringCellValue()).getBytes(),"UTF-8");
       centro.makeSingleVariable(variableNames[i],removeSpecialSymbols(cellContent));
      }catch(Exception e){
        System.out.println("unable to encode UTF-8 string");
@@ -208,7 +208,7 @@ public class CIDER_ExcelHandler {
    for(int j=1;j<=numOptions;j++){
     String columnName = tokens[0]+" "+j;
     String cellValue = removeSpecialSymbols(r.getCell(variableToDBMap.get(columnName)).getStringCellValue());
-    if(!cellValue.equals("NA") && !cellValue.equals("No hay información disponible")){
+    if(!cellValue.equals("NA") && !cellValue.equals("No hay informacion disponible")){
      varValues.add(cellValue);
     }
     centro.makeMultivariable(varName, varValues);

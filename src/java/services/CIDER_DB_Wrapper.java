@@ -27,9 +27,9 @@ public class CIDER_DB_Wrapper {
  protected CIDER_DB dataBase;
  protected StringHandler stringHandler;
  //direccion local para pruebas (Camilo)
- //protected final String dataPath = "C:\\desarrollo\\desarrolloCIDER\\webTestApplication\\Data";
+ protected final String dataPath = "C:\\desarrollo\\desarrolloCIDER\\webTestApplication\\Data";
  //dirección para pruebas en el servidor CIDER
- protected final String dataPath = "C:\\Users\\admCIDER\\Desktop\\HerramientaWeb_CIDER\\Data\\excelFiles";
+ //protected final String dataPath = "C:\\Users\\admCIDER\\Desktop\\HerramientaWeb_CIDER\\Data\\excelFiles";
  protected final String fileName = "baseDeDatos_emailInstitucional.xlsx";
  
  public CIDER_DB_Wrapper() {
