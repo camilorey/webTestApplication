@@ -10,6 +10,7 @@ import CIDER_DB.CIDER_DB;
 import CIDER_DB.CIDER_DB_Entity;
 import CIDER_DB.CIDER_Entidad;
 import CIDER_DB.CIDER_Variable;
+import CIDER_statPlots.CIDER_StatPlot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.jws.WebService;
@@ -198,6 +199,23 @@ public class CIDER_WebServices {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
     response = DB.getSingleVariablePercentQuery(variableName, filters);
+  }
+  return response;
+ }
+ /**
+  * Web service operation
+  */
+ @WebMethod(operationName = "createTortaPlot")
+ public byte[] createTortaPlot(@WebParam(name = "variableName") String variableName, @WebParam(name = "filters") String filters) throws NullPointerException {
+  byte[] response = null;
+  if(DB == null){
+   throw new NullPointerException("Data Base is not defined yet");
+  }else{
+     CIDER_StatPlot tortaPlot = new CIDER_StatPlot(800,600);
+     tortaPlot.update();
+     tortaPlot.saveToFile();
+     response = tortaPlot.getByteArray();
+    //response = DB.getSingleVariablePercentQuery(variableName, filters);
   }
   return response;
  }
