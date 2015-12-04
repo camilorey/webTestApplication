@@ -54,7 +54,7 @@ public class CIDER_StatPlot {
   g.setColor(Color.red);
   g.fillOval(0,0, width, height);
   g.setColor(Color.yellow);
-  g.drawString("Te odio CIDER", width/2, height/2);
+  g.drawString("prueba", width/2, height/2);
  }
  public BufferedImage getPlot(){
   return plot;

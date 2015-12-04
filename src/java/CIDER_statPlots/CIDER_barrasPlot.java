@@ -9,6 +9,7 @@ import CIDER_DB.CIDER_DB;
 import CIDER_DB.CIDER_Variable;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,8 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_barrasPlot extends CIDER_singleVariableStatPlot{
  HashMap<String,Integer> barrasContent;
+ int total;
+ float[] colorFactors;
  public CIDER_barrasPlot(CIDER_DB parentDB,String dataPath,int w, int h) {
   super(parentDB, dataPath,w, h);
  }
@@ -36,6 +39,15 @@ public class CIDER_barrasPlot extends CIDER_singleVariableStatPlot{
       throw new NullPointerException("Variable not registered");
      }else{
       barrasContent = parentDB.makeSingleVariableStatNumberQuery(var, arrayOfFilters);
+      colorFactors = new float[barrasContent.keySet().size()];
+      for(int i=0;i<colorFactors.length;i++){
+       colorFactors[i] = (float) i / (float) colorFactors.length;
+      }
+      if(arrayOfFilters.isEmpty()){
+       total = parentDB.numCentros();
+      }else{
+       total = parentDB.numCentrosWithFilter(arrayOfFilters);
+      }
      }
     }catch(ParseException pe){
      throw new NullPointerException("parsing problem: "+pe.getMessage());
@@ -46,10 +58,25 @@ public class CIDER_barrasPlot extends CIDER_singleVariableStatPlot{
   if(barrasContent != null){
    g.setColor(Color.white);
    g.fillRect(0, 0, width, height);
-   g.setColor(Color.red);
-   g.fillOval(0,0, width, height);
-   g.setColor(Color.yellow);
-   g.drawString("Te odio CIDER", width/2, height/2);
+   int barThickness = Math.round(height*0.95f) / barrasContent.keySet().size();
+   int currentY = 0;
+   int index = 0;
+   int cX = 0;
+   int cY = 0;
+   for(String key: barrasContent.keySet()){
+    float u = (float) barrasContent.get(key) / (float) total;
+    int thisBarWidth = Math.round(u*width);
+    Color barColor = new Color(colorFactors[index],colorFactors[index],colorFactors[index]);
+    Color textColor = new Color(1-colorFactors[index],1-colorFactors[index],1-colorFactors[index]);
+    g.setPaint(barColor);
+    g.fill(new Rectangle2D.Double(0, currentY,thisBarWidth, barThickness));
+    g.setPaint(Color.black);
+    g.drawRect(0, currentY,thisBarWidth, barThickness);
+    g.setPaint(textColor);
+    g.drawString(key+"("+barrasContent.get(key)+")",0,currentY-barThickness/2);
+    currentY += barThickness;
+    index++;
+   }
   }
  }
  @Override

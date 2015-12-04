@@ -9,6 +9,7 @@ import CIDER_DB.CIDER_DB;
 import CIDER_DB.CIDER_Variable;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_multiBarrasPlot extends CIDER_doubleVariableStatPlot{
  HashMap<String,HashMap<String,Integer>> multibarrasContent;
+ int total;
+ float[] colorFactors;
  public CIDER_multiBarrasPlot(CIDER_DB parentDB,String dataPath,int w, int h) {
   super(parentDB,dataPath,w, h);
   multibarrasContent = null;
@@ -46,6 +49,12 @@ public class CIDER_multiBarrasPlot extends CIDER_doubleVariableStatPlot{
      throw new NullPointerException("Variable null: "+nullVar);
     }else{
       multibarrasContent = parentDB.makeDoubleVariableStatNumberQuery(var1, var2, arrayOfFilters);
+      if(arrayOfFilters.isEmpty()){
+       total = parentDB.numCentros();
+      }else{
+       total = parentDB.numCentrosWithFilter(arrayOfFilters);
+      }
+      colorFactors = new float[10];
     }
    }catch(ParseException pe){
     throw new NullPointerException("parsing problem: "+pe.getMessage());
@@ -56,10 +65,31 @@ public class CIDER_multiBarrasPlot extends CIDER_doubleVariableStatPlot{
   if(multibarrasContent != null){
    g.setColor(Color.white);
    g.fillRect(0, 0, width, height);
-   g.setColor(Color.red);
-   g.fillOval(0,0, width, height);
-   g.setColor(Color.yellow);
-   g.drawString("Te odio CIDER", width/2, height/2);
+   int barThickness = Math.round(height*0.95f) / multibarrasContent.keySet().size();
+   int currentY = 0;
+   int xOffset = Math.round(width*0.2f);
+   for(String key: multibarrasContent.keySet()){
+    HashMap<String,Integer> subBarContent = multibarrasContent.get(key);
+    int index = 0;
+    int subBarThickness = Math.round((float) barThickness / (float) subBarContent.keySet().size());
+    int subCurrentY = currentY;
+    for(String subKey: subBarContent.keySet()){
+     float u = (float) index / (float) subBarContent.keySet().size();
+     float v = (float) subBarContent.get(subKey) / (float) total;
+     int thisBarWidth = Math.round(width*v);
+     Color barColor = new Color(u,u,u);
+     Color textColor = new Color(1-u,1-u,1-u);
+     g.setPaint(barColor);
+     g.fill(new Rectangle2D.Double(xOffset, subCurrentY,thisBarWidth, subBarThickness));
+     g.setPaint(Color.black);
+     g.drawRect(xOffset, subCurrentY,thisBarWidth, subBarThickness);
+     index++;
+     subCurrentY += subBarThickness;
+    }
+    g.setPaint(Color.black);
+    g.drawString(key,0,currentY);
+    currentY += barThickness;
+   }
   }
  }
  @Override

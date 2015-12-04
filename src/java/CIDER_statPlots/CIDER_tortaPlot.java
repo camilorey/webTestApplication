@@ -21,6 +21,7 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_tortaPlot extends CIDER_singleVariableStatPlot{
  HashMap<String,Float> tortaContent;
+ float[] colorFactors; 
  public CIDER_tortaPlot(CIDER_DB parentDB,String dataPath ,int w, int h) {
   super(parentDB, dataPath,w, h);
   tortaContent = null;
@@ -37,19 +38,39 @@ public class CIDER_tortaPlot extends CIDER_singleVariableStatPlot{
       throw new NullPointerException("Variable not registered");
      }else{
       tortaContent = parentDB.makeSingleVariableStatPercentQuery(var, arrayOfFilters);
+      colorFactors = new float[tortaContent.keySet().size()];
+      for(int i=0;i<colorFactors.length;i++){
+       colorFactors[i] = (float) i / (float) colorFactors.length;
+       
+      }
      }
     }catch(ParseException pe){
      throw new NullPointerException("parsing problem: "+pe.getMessage());
     }
  }
+ @Override
+ public void update(){
+  g2D = plot.createGraphics();
+  plot(g2D);
+  g2D.dispose();
+ }
+ @Override
  public void plot(Graphics2D g){
   if(tortaContent != null){
    g.setColor(Color.white);
    g.fillRect(0, 0, width, height);
-   g.setColor(Color.red);
-   g.fillOval(0,0, width, height);
-   g.setColor(Color.yellow);
-   g.drawString("Te odio CIDER", width/2, height/2);
+   int currentAngle = 0;
+   int index = 0;
+   int cX = 0;
+   int cY = 0;
+   for(String key: tortaContent.keySet()){
+    int thisAngle = Math.round(tortaContent.get(key)*360);
+    Color currentColor = new Color(colorFactors[index],colorFactors[index],colorFactors[index]);
+    g.setColor(currentColor);
+    g.fillArc(cX, cY, width, height, currentAngle, thisAngle);
+    currentAngle += thisAngle;
+    index++;
+   }
   }
  }
  @Override

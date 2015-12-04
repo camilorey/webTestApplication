@@ -215,7 +215,8 @@ public class CIDER_WebServices {
   if(DB == null){
    throw new NullPointerException("Data Base is not defined yet");
   }else{
-     CIDER_StatPlot tortaPlot = new CIDER_tortaPlot(DB.getDB(),DB.getDataPath(),800,600);
+     CIDER_tortaPlot tortaPlot = new CIDER_tortaPlot(DB.getDB(),DB.getDataPath(),800,600);
+     tortaPlot.makeSingleVariableQuery(variableName, filters);
      tortaPlot.update();
      tortaPlot.saveToFile();
      response = tortaPlot.getByteArray();
@@ -233,6 +234,7 @@ public class CIDER_WebServices {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
      CIDER_barrasPlot barrasPlot = new CIDER_barrasPlot(DB.getDB(),DB.getDataPath(),800,600);
+     barrasPlot.makeSingleVariableQuery(variableName, filters);
      barrasPlot.update();
      barrasPlot.saveToFile();
      response = barrasPlot.getByteArray();
@@ -250,6 +252,7 @@ public class CIDER_WebServices {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
     CIDER_multiBarrasPlot multiBarrasPlot = new CIDER_multiBarrasPlot(DB.getDB(),DB.getDataPath(),800,600);
+    multiBarrasPlot.makeDoubleVariableQuery(variable1Name, variable2Name, filters);
     multiBarrasPlot.update();
     multiBarrasPlot.saveToFile();
     response = multiBarrasPlot.getByteArray();
@@ -266,6 +269,7 @@ public class CIDER_WebServices {
    throw new NullPointerException("Data Base is not defined yet");
   }else{
     CIDER_comparativoPlot comparativoPlot = new CIDER_comparativoPlot(DB.getDB(),DB.getDataPath(),800,600);
+    comparativoPlot.makeDoubleVariableQuery(variable1Name, variable2Name, filters);
     comparativoPlot.update();
     comparativoPlot.saveToFile();
     response = comparativoPlot.getByteArray();

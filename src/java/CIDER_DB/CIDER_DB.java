@@ -61,6 +61,9 @@ public class CIDER_DB {
  public CIDER_DB_Entity get(String entName){
   return centros.get(entName);
  }
+ public int numCentrosWithFilter(ArrayList<String> filters){
+  return centros.getNumCentrosWithFilter(filters);
+ }
  public ArrayList<CIDER_DB_Entity> getFilterQueryResult(CIDER_Variable var, String filter){
   return centros.getFilterQueryResult(var, filter);
  }
