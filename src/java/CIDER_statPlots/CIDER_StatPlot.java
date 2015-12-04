@@ -22,7 +22,7 @@ import services.CIDER_DB_Wrapper;
  * @author laptop
  */
 public class CIDER_StatPlot {
- protected final String dataPath = "C:\\desarrollo\\desarrolloCIDER\\webTestApplication\\Data";
+ protected String dataPath;
  protected CIDER_DB parentDB;
  int width;
  int height;
@@ -36,8 +36,9 @@ public class CIDER_StatPlot {
   height = h;
   plot = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
  }
- public CIDER_StatPlot(CIDER_DB parentDB, int w, int h){
+ public CIDER_StatPlot(CIDER_DB parentDB,String dataPath, int w, int h){
   this.parentDB = parentDB;
+  this.dataPath = dataPath;
   width = w;
   height = h;
   plot = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);

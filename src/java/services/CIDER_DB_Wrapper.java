@@ -46,6 +46,9 @@ public class CIDER_DB_Wrapper {
  public CIDER_DB getDB(){
   return dataBase;
  }
+ public String getDataPath(){
+  return dataPath;
+ }
  public String numCentros() throws NullPointerException {
   //TODO write your implementation code here:
   if(dataBase == null){

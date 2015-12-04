@@ -21,8 +21,8 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_tortaPlot extends CIDER_singleVariableStatPlot{
  HashMap<String,Float> tortaContent;
- public CIDER_tortaPlot(CIDER_DB parentDB, int w, int h) {
-  super(parentDB, w, h);
+ public CIDER_tortaPlot(CIDER_DB parentDB,String dataPath ,int w, int h) {
+  super(parentDB, dataPath,w, h);
   tortaContent = null;
  }
  @Override

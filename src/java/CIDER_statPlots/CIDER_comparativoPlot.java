@@ -21,8 +21,8 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_comparativoPlot extends CIDER_doubleVariableStatPlot{
  HashMap<String,HashMap<String,Float>> comparativoContent;
- public CIDER_comparativoPlot(CIDER_DB parentDB, int w, int h) {
-  super(parentDB, w, h);
+ public CIDER_comparativoPlot(CIDER_DB parentDB,String dataPath, int w, int h) {
+  super(parentDB,dataPath,w, h);
   comparativoContent = null;
  }
  @Override

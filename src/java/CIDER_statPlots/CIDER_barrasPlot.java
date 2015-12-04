@@ -21,8 +21,8 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_barrasPlot extends CIDER_singleVariableStatPlot{
  HashMap<String,Integer> barrasContent;
- public CIDER_barrasPlot(CIDER_DB parentDB, int w, int h) {
-  super(parentDB, w, h);
+ public CIDER_barrasPlot(CIDER_DB parentDB,String dataPath,int w, int h) {
+  super(parentDB, dataPath,w, h);
  }
  @Override
  public void makeSingleVariableQuery(String variableName, String filters) throws NullPointerException{

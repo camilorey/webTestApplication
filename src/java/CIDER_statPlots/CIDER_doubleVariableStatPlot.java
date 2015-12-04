@@ -13,8 +13,8 @@ import CIDER_DB.CIDER_DB;
  */
 public class CIDER_doubleVariableStatPlot extends CIDER_StatPlot{
 
- public CIDER_doubleVariableStatPlot(CIDER_DB parentDB, int w, int h) {
-  super(parentDB, w, h);
+ public CIDER_doubleVariableStatPlot(CIDER_DB parentDB,String dataPath, int w, int h) {
+  super(parentDB, dataPath,w, h);
  }
  
  public void makeDoubleVariableQuery(String variable1Name,String variable2Name, String filters) throws NullPointerException{

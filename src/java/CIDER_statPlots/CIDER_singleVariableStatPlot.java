@@ -18,8 +18,8 @@ import org.json.simple.parser.ParseException;
  */
 public class CIDER_singleVariableStatPlot extends CIDER_StatPlot{
 
- public CIDER_singleVariableStatPlot(CIDER_DB parentDB, int w, int h) {
-  super(parentDB, w, h);
+ public CIDER_singleVariableStatPlot(CIDER_DB parentDB, String dataPath ,int w, int h) {
+  super(parentDB, dataPath,w, h);
  }
  public void makeSingleVariableQuery(String variableName, String filters) throws NullPointerException{
  
