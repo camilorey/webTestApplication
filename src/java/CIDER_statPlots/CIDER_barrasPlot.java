@@ -17,11 +17,10 @@ import org.json.simple.parser.ParseException;
  *
  * @author laptop
  */
-public class CIDER_tortaPlot extends CIDER_singleVariableStatPlot{
- HashMap<String,Float> tortaContent;
- public CIDER_tortaPlot(CIDER_DB parentDB, int w, int h) {
+public class CIDER_barrasPlot extends CIDER_singleVariableStatPlot{
+ HashMap<String,Integer> barrasContent;
+ public CIDER_barrasPlot(CIDER_DB parentDB, int w, int h) {
   super(parentDB, w, h);
-  tortaContent = null;
  }
  @Override
  public void makeSingleVariableQuery(String variableName, String filters) throws NullPointerException{
@@ -34,14 +33,14 @@ public class CIDER_tortaPlot extends CIDER_singleVariableStatPlot{
      if(var == null){
       throw new NullPointerException("Variable not registered");
      }else{
-      tortaContent = parentDB.makeSingleVariableStatPercentQuery(var, arrayOfFilters);
+      barrasContent = parentDB.makeSingleVariableStatNumberQuery(var, arrayOfFilters);
      }
     }catch(ParseException pe){
      throw new NullPointerException("parsing problem: "+pe.getMessage());
     }
  }
  public void plot(Graphics2D g){
-  if(tortaContent != null){
+  if(barrasContent != null){
    g.setColor(Color.white);
    g.fillRect(0, 0, width, height);
    g.setColor(Color.red);

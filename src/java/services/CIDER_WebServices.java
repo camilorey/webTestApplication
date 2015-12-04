@@ -11,6 +11,7 @@ import CIDER_DB.CIDER_DB_Entity;
 import CIDER_DB.CIDER_Entidad;
 import CIDER_DB.CIDER_Variable;
 import CIDER_statPlots.CIDER_StatPlot;
+import CIDER_statPlots.CIDER_tortaPlot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.jws.WebService;
@@ -211,7 +212,7 @@ public class CIDER_WebServices {
   if(DB == null){
    throw new NullPointerException("Data Base is not defined yet");
   }else{
-     CIDER_StatPlot tortaPlot = new CIDER_StatPlot(DB.getDB(),800,600);
+     CIDER_StatPlot tortaPlot = new CIDER_tortaPlot(DB.getDB(),800,600);
      tortaPlot.update();
      tortaPlot.saveToFile();
      response = tortaPlot.getByteArray();
