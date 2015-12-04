@@ -9,8 +9,10 @@ import CIDER_DB.CIDER_DB;
 import CIDER_DB.CIDER_Variable;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.imageio.ImageIO;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -39,6 +41,7 @@ public class CIDER_barrasPlot extends CIDER_singleVariableStatPlot{
      throw new NullPointerException("parsing problem: "+pe.getMessage());
     }
  }
+ @Override
  public void plot(Graphics2D g){
   if(barrasContent != null){
    g.setColor(Color.white);
@@ -47,6 +50,15 @@ public class CIDER_barrasPlot extends CIDER_singleVariableStatPlot{
    g.fillOval(0,0, width, height);
    g.setColor(Color.yellow);
    g.drawString("Te odio CIDER", width/2, height/2);
+  }
+ }
+ @Override
+ public void saveToFile(){
+  try{
+   File fileReference = new File(dataPath+"\\pruebaBarras.png");
+   ImageIO.write(plot, "png", fileReference);
+  }catch(Exception ex){
+   System.out.println("something went wrong: "+ex);
   }
  }
 }

@@ -11,6 +11,9 @@ import CIDER_DB.CIDER_DB_Entity;
 import CIDER_DB.CIDER_Entidad;
 import CIDER_DB.CIDER_Variable;
 import CIDER_statPlots.CIDER_StatPlot;
+import CIDER_statPlots.CIDER_barrasPlot;
+import CIDER_statPlots.CIDER_comparativoPlot;
+import CIDER_statPlots.CIDER_multiBarrasPlot;
 import CIDER_statPlots.CIDER_tortaPlot;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -223,6 +226,55 @@ public class CIDER_WebServices {
  /**
   * Web service operation
   */
+ @WebMethod(operationName = "createBarrasPlot")
+ public byte[] createBarrasPlot(@WebParam(name = "variableName") String variableName, @WebParam(name = "filters") String filters) throws NullPointerException {
+  byte[] response = null;
+  if(DB == null){
+   throw new NullPointerException("Data Base is not defined yet");
+  }else{
+     CIDER_barrasPlot barrasPlot = new CIDER_barrasPlot(DB.getDB(),800,600);
+     barrasPlot.update();
+     barrasPlot.saveToFile();
+     response = barrasPlot.getByteArray();
+    //response = DB.getSingleVariablePercentQuery(variableName, filters);
+  }
+  return response;
+ }
+ /**
+  * Web service operation
+  */
+ @WebMethod(operationName = "createMultibarrasPlot")
+ public byte[] createMultibarrasPlot(@WebParam(name = "variable1Name") String variable1Name, @WebParam(name = "variable2Name") String variable2Name, @WebParam(name = "filters") String filters) throws NullPointerException {
+  byte[] response = null;
+  if(DB == null){
+   throw new NullPointerException("Data Base is not defined yet");
+  }else{
+    CIDER_multiBarrasPlot multiBarrasPlot = new CIDER_multiBarrasPlot(DB.getDB(),800,600);
+    multiBarrasPlot.update();
+    multiBarrasPlot.saveToFile();
+    response = multiBarrasPlot.getByteArray();
+  }
+  return response;
+ }
+ /**
+  * Web service operation
+  */
+ @WebMethod(operationName = "createComparativoPlot")
+ public byte[] createComparativoPlot(@WebParam(name = "variable1Name") String variable1Name, @WebParam(name = "variable2Name") String variable2Name, @WebParam(name = "filters") String filters) throws NullPointerException {
+  byte[] response = null;
+  if(DB == null){
+   throw new NullPointerException("Data Base is not defined yet");
+  }else{
+    CIDER_comparativoPlot comparativoPlot = new CIDER_comparativoPlot(DB.getDB(),800,600);
+    comparativoPlot.update();
+    comparativoPlot.saveToFile();
+    response = comparativoPlot.getByteArray();
+  }
+  return response;
+ }
+ /**
+  * Web service operation
+  */
  @WebMethod(operationName = "getDoubleVariableNumberQuery")
  public String getDoubleVariableNumberQuery(@WebParam(name = "variable1Name") String variable1Name, @WebParam(name = "variable2Name") String variable2Name, @WebParam(name = "filters") String filters) throws NullPointerException {
   String response ="";
@@ -233,6 +285,7 @@ public class CIDER_WebServices {
   }
   return response;
  }
+ 
  /**
   * Web service operation
   */

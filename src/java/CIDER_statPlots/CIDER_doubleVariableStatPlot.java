@@ -17,7 +17,7 @@ public class CIDER_doubleVariableStatPlot extends CIDER_StatPlot{
   super(parentDB, w, h);
  }
  
- public void makeDoubleVariableQuery(String variableName, String filters) throws NullPointerException{
+ public void makeDoubleVariableQuery(String variable1Name,String variable2Name, String filters) throws NullPointerException{
  
  }
 }
