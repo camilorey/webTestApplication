@@ -4,12 +4,18 @@
  * and open the template in the editor.
  */
 package CIDER_statPlots;
+import CIDER_DB.CIDER_DB;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import services.CIDER_DB_Wrapper;
 
 /**
  *
@@ -17,6 +23,7 @@ import javax.imageio.ImageIO;
  */
 public class CIDER_StatPlot {
  protected final String dataPath = "C:\\desarrollo\\desarrolloCIDER\\webTestApplication\\Data";
+ protected CIDER_DB parentDB;
  int width;
  int height;
  BufferedImage plot; 
@@ -25,6 +32,12 @@ public class CIDER_StatPlot {
  
  }
  public CIDER_StatPlot(int w, int h){
+  width = w;
+  height = h;
+  plot = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+ }
+ public CIDER_StatPlot(CIDER_DB parentDB, int w, int h){
+  this.parentDB = parentDB;
   width = w;
   height = h;
   plot = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
@@ -63,5 +76,20 @@ public class CIDER_StatPlot {
     System.out.println("something went wrong");
   }
   return asBytes;
+ }
+ public ArrayList<String> parseJSONArray(String array) throws ParseException{
+  ArrayList<String> arrayList = new ArrayList<String>();
+  try{
+    JSONParser parser = new JSONParser();
+    Object obj=parser.parse(array);
+    JSONArray parsedArray =(JSONArray)obj;
+    for(int i=0;i<parsedArray.size();i++){
+     arrayList.add((String) parsedArray.get(i));
+    }
+  }
+  catch(ParseException pe){
+    throw new ParseException(pe.getPosition(), pe.getErrorType(), pe);
+  }
+  return arrayList;
  }
 }

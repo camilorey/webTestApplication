@@ -211,7 +211,7 @@ public class CIDER_WebServices {
   if(DB == null){
    throw new NullPointerException("Data Base is not defined yet");
   }else{
-     CIDER_StatPlot tortaPlot = new CIDER_StatPlot(800,600);
+     CIDER_StatPlot tortaPlot = new CIDER_StatPlot(DB.getDB(),800,600);
      tortaPlot.update();
      tortaPlot.saveToFile();
      response = tortaPlot.getByteArray();
